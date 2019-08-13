@@ -10,5 +10,7 @@
   <p>There are no users yet.</p>
 <% end %>
 
-
-<p><%= link_to "Create new user", new_user_path %></p>
+<% if current_user.try(:admin?) %>
+  <h1>I am an admin </h1>
+  <p><%= link_to "Create New User", new_user_session_path %></p>
+<% end %>

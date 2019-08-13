@@ -20,8 +20,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
-    render :edit
+    if current_user.try(:admin?)
+      @user = User.find(params[:id])
+      render :edit
+    else
+      flash[:notice] = "Sorry, you are not authorized!"
+      redirect_to users_path
+    end
   end
 
   def show
@@ -39,9 +44,14 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    redirect_to users_path
+    if current_user.try(:admin?)
+      @user = User.find(params[:id])
+      @user.destroy
+      redirect_to users_path
+    else
+      flash[:notice] = "Sorry, you are not authorized!"
+      redirect_to users_path
+    end
   end
 
   private
