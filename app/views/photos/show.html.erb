@@ -1,0 +1,9 @@
+<h1>Photo: <%= @photo.title %></h1>
+<h2>User: <%= @user.email %></h2>
+
+<p><%= link_to "Edit photo", edit_user_photo_path(@user, @photo) %></p>
+<p><%= link_to "Delete photo", user_photo_path(@user, @photo),
+                        :data => {:confirm => "Are you sure?",
+                                       :method => "delete"} %></p>
+
+<p><%= link_to "Return to user", user_path(@user) %></p>

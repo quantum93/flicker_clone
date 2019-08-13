@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  validates :email, presence: true
   has_many :photos
   has_many :photos, dependent: :destroy
   # Include default devise modules. Others available are:
