@@ -7,11 +7,17 @@ class PhotosController < ApplicationController
 
   def create
   @user = User.find(params[:user_id])
-  @photo = @user.photos.new(photo_params)
-  if @photo.save
-    redirect_to user_path(@user)
+  if @user.email == current_user.email
+    @photo = @user.photos.new(photo_params)
+    # binding.pry
+    if @photo.save
+      redirect_to user_path(@user)
+    else
+      render :new
+    end
   else
-    render :new
+    flash[:notice] = "Sorry, you are not authorized!"
+    redirect_to user_path(@user)
   end
 end
 

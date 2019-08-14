@@ -1,13 +1,13 @@
 <h1>Users</h1>
 
-<% if @users.any? %>
+<% if current_user %>
   <ul>
     <% @users.each do |user| %>
     <li> <%= link_to user.email, user_path(user) %></li>
     <% end %>
   </ul>
 <% else %>
-  <p>There are no users yet.</p>
+  <p>Please sign in in order to see the list of users.</p>
 <% end %>
 
 <% if current_user.try(:admin?) %>
